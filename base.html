@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Kayan &amp; Njogu Motors Nairobi{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .auth-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+    .auth-container {
+      background: var(--bg-card, #121829);
+      border: 1px solid var(--border-medium, rgba(255,255,255,0.14));
+      border-radius: var(--radius-lg, 16px);
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+      position: relative;
+      z-index: 2;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .auth-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 10px 0 6px 0;
+    }
+    .auth-header p {
+      color: var(--text-muted, #94a3b8);
+      font-size: 0.9rem;
+    }
+    .auth-form .form-group {
+      margin-bottom: 20px;
+    }
+    .auth-form label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted, #94a3b8);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .auth-form input[type="text"],
+    .auth-form input[type="email"],
+    .auth-form input[type="password"] {
+      width: 100%;
+      background: var(--bg-primary, #070a12);
+      border: 1px solid var(--border-medium, rgba(255,255,255,0.14));
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: var(--radius-md, 10px);
+      font-size: 1rem;
+      transition: var(--transition, all 0.28s);
+    }
+    .auth-form input:focus {
+      outline: none;
+      border-color: var(--accent-gold, #d4af37);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+    .auth-flash {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .auth-flash.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+    .auth-flash.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+    .auth-flash.info, .auth-flash.warning {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--accent-gold, #d4af37);
+    }
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: var(--text-dim, #64748b);
+    }
+    .auth-footer a {
+      color: var(--accent-gold, #d4af37);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Arrivals &amp; Fresh Shipments | Kayan &amp; Njogu Motors</title>
+  <meta name="description" content="View recently landed luxury vehicles and fresh imports from Japan and the UK at Kayan &amp; Njogu Motors Nairobi showroom.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Info Bar -->
+  <aside class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <div class="top-bar-item">📍 Karen &amp; Ngong Road Junction, Nairobi, Kenya</div>
+        <div class="top-bar-item">🕒 Mon - Sat: 8:00 AM – 6:30 PM</div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">📞 <a href="tel:+254712345678">+254 712 345 678</a></div>
+        <a href="admin.html" class="btn-sm btn-outline" style="padding: 2px 10px; font-size: 0.75rem;">🔐 Admin</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>KAYAN &amp; NJOGU <span>MOTORS</span></h1>
+          <span class="brand-tagline">New Arrivals</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="imports.html">International Imports</a></li>
+        <li><a href="new-arrivals.html" class="active">New Arrivals</a></li>
+        <li><a href="financing.html">Financing</a></li>
+        <li><a href="sell-your-car.html">Sell Your Car</a></li>
+        <li><a href="about.html">About &amp; Team</a></li>
+        <li><a href="compare.html">Compare</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="contact.html" class="btn btn-gold btn-sm">Book Test Drive</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; <span>New Arrivals</span>
+      </div>
+      <h1 class="page-header-title">Fresh <span>Imports &amp; New Arrivals</span></h1>
+      <p class="page-header-desc">
+        Direct from Tokyo, Yokohama, and London ports. These vehicles have just arrived at our Nairobi showroom with full KRA tax compliance and ready for immediate NTSA plate registration.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <main class="container" style="margin-bottom: 80px;">
+    <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(13, 18, 31, 0.8)); border: 1px solid var(--accent-gold-border); border-radius: var(--radius-lg); padding: 24px 30px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 4px;">Looking for a Bespoke Custom Import?</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">We bid directly on Japanese auctions (USS, TAA, CAA) and UK main dealer stock on your behalf.</p>
+      </div>
+      <a href="contact.html" class="btn btn-gold">Request Custom Import Sourcing</a>
+    </div>
+
+    <div class="cars-grid" id="newArrivalsGrid">
+      <!-- Injected dynamically -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Kayan &amp; Njogu Motors. Karen &amp; Ngong Road Junction, Nairobi, Kenya.</p>
+      <p><a href="admin.html" style="color: var(--accent-gold);">Staff Admin Login 🔐</a></p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const grid = document.getElementById("newArrivalsGrid");
+      const vehicles = StorageManager.getVehicles();
+
+      // Filter for recent imports or badges
+      const arrivals = vehicles.filter(c => 
+        c.badge === "New Arrival" || 
+        c.badge === "Featured" || 
+        c.importStatus.toLowerCase().includes("fresh")
+      );
+
+      grid.innerHTML = arrivals.map(car => `
+        <div class="car-card">
+          <div class="car-thumb-wrap">
+            <a href="vehicle-details.html?id=${car.id}">
+              <img src="${car.images[0]}" alt="${car.make} ${car.model}" class="car-thumb">
+            </a>
+            <span class="car-badge-top">FRESH SHIPMENT</span>
+            <span class="car-status-pill status-available">${car.status}</span>
+          </div>
+
+          <div class="car-content">
+            <div class="car-meta-top">
+              <span class="car-year-make">${car.year} &bull; ${car.make}</span>
+              <span class="car-registration">${car.registration}</span>
+            </div>
+
+            <a href="vehicle-details.html?id=${car.id}">
+              <h3 class="car-title">${car.model}</h3>
+            </a>
+
+            <div class="car-specs-grid">
+              <div class="car-spec-item"><span>${car.mileage.toLocaleString()} km</span></div>
+              <div class="car-spec-item"><span>${car.transmission.split(' ')[0]}</span></div>
+              <div class="car-spec-item"><span>${car.fuel}</span></div>
+              <div class="car-spec-item"><span>${car.drive}</span></div>
+            </div>
+
+            <div class="car-footer">
+              <div class="car-price-block">
+                <span class="price-label">Showroom Price</span>
+                <span class="car-price">KSh ${car.price.toLocaleString()}</span>
+              </div>
+
+              <div class="car-actions">
+                <a href="vehicle-details.html?id=${car.id}" class="btn btn-gold btn-sm">
+                  View Details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    });
+  </script>
+</body>
+</html>

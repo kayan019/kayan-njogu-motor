@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Staff Login | Kayan &amp; Njogu Motors Nairobi{% endblock %}
+
+{% block content %}
+<main class="auth-wrapper">
+  <div class="auth-container">
+    <div class="auth-header">
+      <div style="width: 52px; height: 52px; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <h1>KAYAN &amp; NJOGU <span>MOTORS</span></h1>
+      <p>Executive Personnel &amp; Management Authentication</p>
+    </div>
+
+    {% if ceo_exists is defined and not ceo_exists %}
+      <div class="auth-flash info">
+        <strong>Initial Setup Required:</strong> Super Admin CEO account has not been created yet. Run <code>flask --app run.py create-ceo</code> in your terminal to initialize <code>kayannjogu019@gmail.com</code>.
+      </div>
+    {% endif %}
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="auth-flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="form-group">
+        <label for="email">Executive Staff Email</label>
+        <input type="email" id="email" name="email" required placeholder="e.g. kayannjogu019@gmail.com" autocomplete="email" autofocus>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Account Password</label>
+        <input type="password" id="password" name="password" required placeholder="••••••••••••" autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-block" style="width: 100%; padding: 14px; font-weight: 700; margin-top: 10px; font-size: 1rem;">
+        Authenticate &amp; Continue ➔
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <div>🔒 256-Bit SSL Encrypted &bull; Mandatory Authenticator 2FA</div>
+      <div style="margin-top: 10px;">
+        <a href="{{ url_for('index') }}">Return to Public Showroom</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

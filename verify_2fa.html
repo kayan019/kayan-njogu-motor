@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Verify Two-Factor Login | Kayan &amp; Njogu Motors{% endblock %}
+
+{% block content %}
+<main class="auth-wrapper">
+  <div class="auth-container">
+    <div class="auth-header">
+      <div style="width: 52px; height: 52px; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.5rem;">
+        🔐
+      </div>
+      <h1>Two-Factor Verification</h1>
+      <p>Enter the 6-digit code from your authenticator app.</p>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="auth-flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="form-group">
+        <label for="code">Verification Code or Emergency Recovery Code</label>
+        <input type="text" id="code" name="code" required placeholder="000000 or A9K2-X7Q4" autocomplete="one-time-code" style="text-align: center; font-size: 1.3rem; font-family: monospace; letter-spacing: 3px;" autofocus>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-block" style="width: 100%; padding: 14px; font-weight: 700; margin-top: 10px;">
+        Verify and Enter Dashboard
+      </button>
+    </form>
+
+    <div class="auth-footer" style="line-height: 1.8;">
+      <div>Can't access your phone? Enter one of your single-use recovery codes.</div>
+      <div style="margin-top: 8px;">
+        <a href="{{ url_for('auth.logout') }}">Sign in as different user</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

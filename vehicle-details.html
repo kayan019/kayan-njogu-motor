@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Details | Kayan &amp; Njogu Motors Nairobi</title>
+  <meta name="description" content="View full vehicle specifications, multi-angle photographs, financing estimates, and reserve this luxury vehicle.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Info Bar -->
+  <aside class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <div class="top-bar-item">📍 Karen &amp; Ngong Road Junction, Nairobi, Kenya</div>
+        <div class="top-bar-item">🕒 Mon - Sat: 8:00 AM – 6:30 PM</div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">📞 <a href="tel:+254712345678">+254 712 345 678</a></div>
+        <div class="currency-toggle" id="currencyToggle">
+          <button class="currency-btn active" data-currency="KES">KES</button>
+          <button class="currency-btn" data-currency="USD">USD</button>
+        </div>
+        <a href="admin.html" class="btn-sm btn-outline" style="padding: 2px 10px; font-size: 0.75rem;">🔐 Admin</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>KAYAN &amp; NJOGU <span>MOTORS</span></h1>
+          <span class="brand-tagline">Vehicle Specification</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html" class="active">Inventory</a></li>
+        <li><a href="imports.html">International Imports</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="financing.html">Financing</a></li>
+        <li><a href="sell-your-car.html">Sell Your Car</a></li>
+        <li><a href="about.html">About &amp; Team</a></li>
+        <li><a href="compare.html">Compare</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="contact.html" class="btn btn-gold btn-sm">Book Test Drive</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Breadcrumb -->
+  <div style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); padding: 14px 0;">
+    <div class="container">
+      <div class="breadcrumb" style="justify-content: flex-start; margin: 0;">
+        <a href="index.html">Home</a> &gt; <a href="inventory.html">Inventory</a> &gt; <span id="breadcrumbCarTitle">Vehicle Details</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Vehicle Layout -->
+  <main class="container" style="padding: 40px 0 80px;">
+    <div class="detail-layout-grid" id="carDetailLayout">
+      <!-- Injected dynamically by vehicle id -->
+    </div>
+  </main>
+
+  <!-- M-Pesa STK Push Reservation Modal -->
+  <div class="modal-backdrop" id="mpesaModal">
+    <div class="modal-content" style="max-width: 520px;">
+      <button class="modal-close-btn" id="closeMpesaModalBtn">&times;</button>
+      <div class="modal-body">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="background: #008751; color: #fff; width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem;">
+            M
+          </div>
+          <div>
+            <h3 style="color: #fff; font-size: 1.3rem;">Safaricom M-Pesa STK Push</h3>
+            <span class="mpesa-badge">Official Daraja API Gateway</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+          Hold this vehicle exclusively in your name for 48 hours with a refundable reservation deposit.
+        </p>
+
+        <form id="mpesaPaymentForm">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Selected Vehicle</label>
+            <input type="text" id="mpesaVehicleName" readonly style="background: rgba(255,255,255,0.05);">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Your Full Name *</label>
+            <input type="text" id="mpesaCustomerName" required placeholder="e.g. Samuel K. Njoroge">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Safaricom Phone Number *</label>
+            <input type="tel" id="mpesaPhone" required placeholder="07XX XXX XXX or 01XX XXX XXX">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label>Reservation Deposit Amount (KES) *</label>
+            <select id="mpesaAmount" required>
+              <option value="50000">KSh 50,000 (Standard 48-Hour Hold)</option>
+              <option value="100000">KSh 100,000 (Priority 7-Day Hold)</option>
+              <option value="250000">KSh 250,000 (Full Inspection &amp; Clearing Deposit)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-mpesa" id="btnTriggerMpesa">
+            <span>📲</span> Send STK Push to My Phone
+          </button>
+        </form>
+
+        <!-- Simulated STK Prompt / Loading state -->
+        <div id="mpesaProcessingState" style="display: none; text-align: center; padding: 24px 0;">
+          <div style="font-size: 2.5rem; animation: pulse 1s infinite;">📲</div>
+          <h4 style="color: #fff; margin: 12px 0 6px;">Prompt Sent to Your Handset</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Please check your Safaricom phone and enter your M-Pesa PIN to authorize payment to <strong>Kayan &amp; Njogu Motors Ltd (Paybill: 889900)</strong>.</p>
+          <div style="margin-top: 14px; font-size: 0.82rem; color: var(--accent-gold);">Simulating PIN confirmation in 3 seconds...</div>
+        </div>
+
+        <!-- Receipt Result -->
+        <div id="mpesaReceiptContainer" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test Drive Modal -->
+  <div class="modal-backdrop" id="detailTestDriveModal">
+    <div class="modal-content" style="max-width: 550px;">
+      <button class="modal-close-btn" id="closeDetailTestDriveBtn">&times;</button>
+      <div class="modal-body">
+        <span class="section-tag">Showroom Appointment</span>
+        <h3 style="color: #fff; font-size: 1.4rem; margin-bottom: 8px;">Schedule a VIP Test Drive</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;" id="tdModalCarName">Vehicle</p>
+
+        <form id="detailTestDriveForm">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Your Name *</label>
+            <input type="text" id="dtName" required placeholder="Your full name">
+          </div>
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Phone Number *</label>
+            <input type="tel" id="dtPhone" required placeholder="+254 7XX XXX XXX">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Preferred Date *</label>
+              <input type="date" id="dtDate" required>
+            </div>
+            <div class="form-group">
+              <label>Time Slot *</label>
+              <select id="dtTime" required>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="02:00 PM">02:00 PM</option>
+                <option value="04:30 PM">04:30 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 18px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="dtLicense" required style="width: auto;">
+              <span style="font-size: 0.82rem; color: #fff;">I hold a valid Kenyan / International Driving License</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width: 100%;">Confirm Test Drive</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Kayan &amp; Njogu Motors. Karen &amp; Ngong Road Junction, Nairobi, Kenya.</p>
+      <p><a href="admin.html" style="color: var(--accent-gold);">Staff Admin Login 🔐</a></p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const vehicles = StorageManager.getVehicles();
+      const urlParams = new URLSearchParams(window.location.search);
+      const carId = urlParams.get("id") || "KNM-101";
+
+      const car = vehicles.find(c => c.id === carId) || vehicles[0];
+
+      // Update page title & breadcrumb
+      document.title = `${car.year} ${car.make} ${car.model} | Kayan & Njogu Motors`;
+      document.getElementById("breadcrumbCarTitle").textContent = `${car.year} ${car.make} ${car.model}`;
+
+      const layout = document.getElementById("carDetailLayout");
+      if (!layout) return;
+
+      const waMessage = encodeURIComponent(
+        `Hello Kayan & Njogu Motors! I am reviewing the ${car.year} ${car.make} ${car.model} (Stock ID: ${car.id}, Price: KSh ${car.price.toLocaleString()}) on your website. Kindly share more details and availability for showroom viewing.`
+      );
+      const waUrl = `https://wa.me/254712345678?text=${waMessage}`;
+
+      // Render Layout
+      layout.innerHTML = `
+        <!-- Left Main Column -->
+        <div class="detail-main-col">
+          <!-- Gallery -->
+          <div>
+            <div class="gallery-main" style="height: 480px; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px;">
+              <img id="detailActiveImg" src="${car.images[0]}" alt="${car.make} ${car.model}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="gallery-thumbs">
+              ${car.images.map((img, i) => `
+                <div class="gallery-thumb-item ${i === 0 ? 'active' : ''}" onclick="switchDetailImg('${img}', this)">
+                  <img src="${img}" alt="Angle ${i + 1}">
+                </div>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); padding: 32px;">
+            <span class="section-tag">Showroom Provenance</span>
+            <h3 style="color: #fff; font-size: 1.4rem; margin-bottom: 12px;">Vehicle Overview</h3>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 20px;">
+              ${car.description}
+            </p>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 14px 18px; border-radius: var(--radius-sm); font-size: 0.85rem; color: #94a3b8;">
+              🔒 <strong>Chassis Number Verification:</strong> To protect client confidentiality and prevent vehicle cloning, complete chassis number and KRA tax assessment entries are verified in-person at our Karen showroom during physical mechanical inspection.
+            </div>
+          </div>
+
+          <!-- Specifications -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); padding: 32px;">
+            <span class="section-tag">Engine &amp; Performance</span>
+            <h3 style="color: #fff; font-size: 1.4rem; margin-bottom: 16px;">Full Technical Specifications</h3>
+            
+            <table class="detail-specs-table">
+              <tr><td>Vehicle Stock Ref:</td><td><strong>${car.id}</strong></td></tr>
+              <tr><td>Make &amp; Model:</td><td>${car.make} ${car.model}</td></tr>
+              <tr><td>Year of Manufacture:</td><td>${car.year}</td></tr>
+              <tr><td>Mileage (Certified):</td><td>${car.mileage.toLocaleString()} km</td></tr>
+              <tr><td>Engine Specification:</td><td>${car.engine}</td></tr>
+              <tr><td>Fuel Type:</td><td>${car.fuel}</td></tr>
+              <tr><td>Transmission:</td><td>${car.transmission}</td></tr>
+              <tr><td>Drivetrain:</td><td>${car.drive}</td></tr>
+              <tr><td>Body Style:</td><td>${car.body}</td></tr>
+              <tr><td>Exterior Color:</td><td>${car.color}</td></tr>
+              <tr><td>Import Provenance:</td><td>${car.importStatus}</td></tr>
+              <tr><td>Registration Plate:</td><td><span style="font-family: monospace; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px;">${car.registration}</span></td></tr>
+              <tr><td>Availability Status:</td><td><strong style="color: var(--accent-gold);">${car.status}</strong></td></tr>
+            </table>
+          </div>
+
+          <!-- Luxury Features Checklist -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); padding: 32px;">
+            <span class="section-tag">Standard Equipment</span>
+            <h3 style="color: #fff; font-size: 1.4rem; margin-bottom: 16px;">Installed Luxury Options</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+              ${car.features.map(f => `
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #fff;">
+                  <span style="color: var(--accent-gold); font-weight: 700;">✓</span>
+                  <span>${f}</span>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sticky Sidebar Column -->
+        <div class="detail-sidebar-col">
+          <div class="detail-sidebar-card">
+            <span class="car-badge-top" style="position: static; display: inline-block; margin-bottom: 12px;">${car.badge || 'Showroom Certified'}</span>
+            <h2 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 4px;">${car.year} ${car.make}</h2>
+            <h3 style="font-size: 1.3rem; color: var(--accent-gold); margin-bottom: 16px;">${car.model}</h3>
+
+            <div style="border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 16px 0; margin-bottom: 20px;">
+              <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Asking Showroom Price</span>
+              <div style="font-size: 2.2rem; font-weight: 900; color: #fff;">KSh ${car.price.toLocaleString()}</div>
+              <div style="font-size: 0.85rem; color: var(--accent-gold);">~ $${Math.round(car.price / 130).toLocaleString()} USD</div>
+            </div>
+
+            <!-- Key Actions -->
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+              <button class="btn-mpesa" onclick="openMpesaReservation('${car.id}', '${car.year} ${car.make} ${car.model}')">
+                <span>📲</span> Reserve via M-Pesa STK Push
+              </button>
+
+              <a href="${waUrl}" target="_blank" class="btn btn-whatsapp" style="width: 100%;">
+                <span>💬</span> WhatsApp Enquiry with Symo &bull; Sales
+              </a>
+
+              <button class="btn btn-gold" style="width: 100%;" onclick="openTestDriveModalForCar('${car.year} ${car.make} ${car.model}')">
+                <span>🏎️</span> Book VIP Test Drive
+              </button>
+            </div>
+
+            <!-- Financing Preview Widget -->
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px;">
+              <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 8px;">Asset Financing Estimate</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">20% Deposit over 36 months @ 13.5% APR</p>
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 12px;">
+                ~ KSh ${Math.round((car.price * 0.8 * 0.0339)).toLocaleString()} / mo
+              </div>
+              <a href="financing.html?price=${car.price}" class="btn-outline btn-sm" style="display: block; text-align: center;">
+                Custom Financing Calculator &rarr;
+              </a>
+            </div>
+
+            <!-- Advisory Contact Card -->
+            <div style="margin-top: 20px; border-top: 1px solid var(--border-light); padding-top: 16px; font-size: 0.82rem; color: var(--text-muted);">
+              <div>📍 <strong>Showroom:</strong> Karen &amp; Ngong Road Junction</div>
+              <div style="margin-top: 4px;">👤 <strong>Direct Advisor:</strong> Kiiru Njogu (+254 798 123 456)</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    window.switchDetailImg = function (src, el) {
+      document.getElementById("detailActiveImg").src = src;
+      document.querySelectorAll(".gallery-thumb-item").forEach(t => t.classList.remove("active"));
+      if (el) el.classList.add("active");
+    };
+
+    // M-Pesa Modal Functions
+    window.openMpesaReservation = function (id, name) {
+      document.getElementById("mpesaVehicleName").value = name;
+      document.getElementById("mpesaPaymentForm").style.display = "block";
+      document.getElementById("mpesaProcessingState").style.display = "none";
+      document.getElementById("mpesaReceiptContainer").style.display = "none";
+      document.getElementById("mpesaModal").classList.add("open");
+    };
+
+    document.getElementById("closeMpesaModalBtn").addEventListener("click", () => {
+      document.getElementById("mpesaModal").classList.remove("open");
+    });
+
+    document.getElementById("mpesaPaymentForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const phone = document.getElementById("mpesaPhone").value.trim();
+      const customer = document.getElementById("mpesaCustomerName").value.trim();
+      const amount = Number(document.getElementById("mpesaAmount").value);
+      const vehicle = document.getElementById("mpesaVehicleName").value;
+
+      document.getElementById("mpesaPaymentForm").style.display = "none";
+      document.getElementById("mpesaProcessingState").style.display = "block";
+
+      // Simulate STK Push confirmation after 3 seconds
+      setTimeout(function () {
+        const transId = "MPESA-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+        const dateStr = new Date().toLocaleString();
+
+        const paymentRecord = {
+          id: transId,
+          customerName: customer,
+          phone: phone,
+          vehicle: vehicle,
+          amount: amount,
+          status: "Confirmed",
+          date: dateStr
+        };
+
+        // Save to LocalStorage
+        const existingPayments = JSON.parse(localStorage.getItem("knm_payments") || "[]");
+        existingPayments.unshift(paymentRecord);
+        localStorage.setItem("knm_payments", JSON.stringify(existingPayments));
+
+        // Call Flask API if active
+        fetch("/api/payments/mpesa-stk", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(paymentRecord)
+        }).catch(() => {});
+
+        document.getElementById("mpesaProcessingState").style.display = "none";
+        const receiptBox = document.getElementById("mpesaReceiptContainer");
+        receiptBox.style.display = "block";
+        receiptBox.innerHTML = `
+          <div class="receipt-card">
+            <div class="receipt-header">
+              <span class="mpesa-badge" style="margin-bottom: 8px;">✓ Payment Verified</span>
+              <h4 style="font-size: 1.15rem; color: #fff;">Official Reservation Receipt</h4>
+              <p style="font-size: 0.78rem; color: var(--accent-gold);">Kayan &amp; Njogu Motors Ltd</p>
+            </div>
+            <div class="receipt-row"><span>Receipt / M-Pesa Ref:</span><strong>${transId}</strong></div>
+            <div class="receipt-row"><span>Customer:</span><strong>${customer}</strong></div>
+            <div class="receipt-row"><span>Phone:</span><strong>${phone}</strong></div>
+            <div class="receipt-row"><span>Reserved Vehicle:</span><strong>${vehicle}</strong></div>
+            <div class="receipt-row"><span>Amount Paid:</span><strong style="color: #22c55e;">KSh ${amount.toLocaleString()}</strong></div>
+            <div class="receipt-row"><span>Timestamp:</span><strong>${dateStr}</strong></div>
+            <div class="receipt-row"><span>Hold Period:</span><strong>48 Hours (Guaranteed)</strong></div>
+            <button class="btn btn-gold btn-sm" style="width: 100%; margin-top: 14px;" onclick="window.print()">
+              🖨️ Print / Save Receipt
+            </button>
+          </div>
+        `;
+      }, 3000);
+    });
+
+    // Test Drive Modal
+    window.openTestDriveModalForCar = function (name) {
+      document.getElementById("tdModalCarName").textContent = "Vehicle: " + name;
+      document.getElementById("detailTestDriveModal").classList.add("open");
+    };
+
+    document.getElementById("closeDetailTestDriveBtn").addEventListener("click", () => {
+      document.getElementById("detailTestDriveModal").classList.remove("open");
+    });
+
+    document.getElementById("detailTestDriveForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Test drive requested successfully! Kiiru Njogu or Symo Miogo will contact you to confirm your slot.");
+      document.getElementById("detailTestDriveModal").classList.remove("open");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

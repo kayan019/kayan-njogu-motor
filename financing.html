@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Financing Calculator | Kayan &amp; Njogu Motors Nairobi</title>
+  <meta name="description" content="Calculate monthly car loan repayments in Kenyan Shillings (KES). Partnered with NCBA, Stanbic, Equity, Co-op, and I&M banks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <aside class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <div class="top-bar-item">📍 Karen &amp; Ngong Road Junction, Nairobi, Kenya</div>
+        <div class="top-bar-item">🕒 Mon - Sat: 8:00 AM – 6:30 PM</div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">📞 <a href="tel:+254712345678">+254 712 345 678</a></div>
+        <a href="admin.html" class="btn-sm btn-outline" style="padding: 2px 10px; font-size: 0.75rem;">🔐 Admin</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>KAYAN &amp; NJOGU <span>MOTORS</span></h1>
+          <span class="brand-tagline">Asset Financing</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="imports.html">International Imports</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="financing.html" class="active">Financing</a></li>
+        <li><a href="sell-your-car.html">Sell Your Car</a></li>
+        <li><a href="about.html">About &amp; Team</a></li>
+        <li><a href="compare.html">Compare</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="contact.html" class="btn btn-gold btn-sm">Book Test Drive</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; <span>Asset Financing</span>
+      </div>
+      <h1 class="page-header-title">Car <span>Financing Calculator</span></h1>
+      <p class="page-header-desc">
+        Calculate your exact monthly payments and apply for pre-approved vehicle loans through our direct banking partners across Kenya.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container" style="margin-bottom: 80px;">
+    <!-- Calculator Card -->
+    <div class="calc-grid" style="margin-bottom: 50px;">
+      <div class="calc-form">
+        <h3 style="color: #fff; font-size: 1.35rem; margin-bottom: 16px;">Loan Parameters</h3>
+
+        <div class="calc-field">
+          <label>
+            <span>Vehicle Price (KES)</span>
+            <span id="fPriceDisplay" style="color: var(--accent-gold); font-weight: 800;">KSh 12,000,000</span>
+          </label>
+          <input type="range" id="fPriceRange" min="2500000" max="30000000" step="500000" value="12000000">
+          <input type="number" id="fPriceInput" value="12000000" style="margin-top: 8px;">
+        </div>
+
+        <div class="calc-field">
+          <label>
+            <span>Down Payment / Deposit (KES)</span>
+            <span id="fDepositDisplay">KSh 2,400,000 (20%)</span>
+          </label>
+          <input type="range" id="fDepositRange" min="10" max="70" step="5" value="20">
+        </div>
+
+        <div class="calc-field">
+          <label>
+            <span>Loan Repayment Period</span>
+            <span id="fTermDisplay">36 Months (3 Years)</span>
+          </label>
+          <input type="range" id="fTermRange" min="12" max="60" step="6" value="36">
+        </div>
+
+        <div class="calc-field">
+          <label>
+            <span>Bank Interest Rate (APR)</span>
+            <span id="fRateDisplay">13.5%</span>
+          </label>
+          <input type="range" id="fRateRange" min="10" max="18" step="0.5" value="13.5">
+        </div>
+      </div>
+
+      <div class="calc-result-card">
+        <div>
+          <div class="calc-result-header">
+            <p>Estimated Monthly Instalment</p>
+            <div class="monthly-pay-amount" id="fMonthlyResult">KSh 325,800</div>
+            <span style="font-size: 0.8rem; color: #94a3b8;">*Amortized using standard banking formula</span>
+          </div>
+
+          <div class="calc-breakdown">
+            <div class="breakdown-row"><span>Vehicle Price:</span><strong id="fBPrice">KSh 12,000,000</strong></div>
+            <div class="breakdown-row"><span>Deposit Paid:</span><strong id="fBDeposit">KSh 2,400,000</strong></div>
+            <div class="breakdown-row"><span>Principal Financed:</span><strong id="fBPrincipal">KSh 9,600,000</strong></div>
+            <div class="breakdown-row"><span>Total Interest:</span><strong id="fBInterest">KSh 2,128,800</strong></div>
+            <div class="breakdown-row" style="border-top: 1px solid var(--border-light); padding-top: 10px;">
+              <span>Total Payable:</span><strong style="color: var(--accent-gold);" id="fBTotal">KSh 11,728,800</strong>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <a href="#applySection" class="btn btn-gold" style="width: 100%; text-align: center;">
+            Apply for Bank Pre-Approval Below
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approved Banks -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); padding: 36px; margin-bottom: 50px;">
+      <h3 style="color: #fff; font-size: 1.4rem; margin-bottom: 12px; text-align: center;">Our Approved Tier-1 Banking Partners</h3>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.92rem; max-width: 600px; margin: 0 auto 30px;">
+        We hold direct corporate dealer relationships with Kenya's leading asset finance divisions, expediting appraisal and credit approval.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+        <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <h4 style="color: #fff; margin-bottom: 4px;">NCBA Bank</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-gold);">Up to 80% Financing</span>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <h4 style="color: #fff; margin-bottom: 4px;">Stanbic Bank</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-gold);">48-Hour Approvals</span>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <h4 style="color: #fff; margin-bottom: 4px;">Equity Bank</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-gold);">Flexible Repayment</span>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <h4 style="color: #fff; margin-bottom: 4px;">Co-op Bank</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-gold);">Up to 60 Months</span>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <h4 style="color: #fff; margin-bottom: 4px;">I&amp;M Bank</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-gold);">Competitive APR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Form -->
+    <div id="applySection" style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); padding: 40px; max-width: 800px; margin: 0 auto;">
+      <span class="section-tag">Fast Track</span>
+      <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 8px;">Apply for Financing Pre-Approval</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Our finance manager Kiiru Njogu will prepare your bank application dossier and contact you within 24 hours.</p>
+
+      <form id="financeApplicationForm" class="sell-form">
+        <div class="form-group">
+          <label>Your Full Name *</label>
+          <input type="text" id="faName" required placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="faPhone" required placeholder="+254 7XX XXX XXX">
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="faEmail" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Preferred Bank Partner</label>
+          <select id="faBank">
+            <option value="NCBA Bank">NCBA Bank</option>
+            <option value="Stanbic Bank">Stanbic Bank</option>
+            <option value="Equity Bank">Equity Bank</option>
+            <option value="Co-operative Bank">Co-operative Bank</option>
+            <option value="I&M Bank">I&M Bank</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label>Target Vehicle / Model of Interest</label>
+          <input type="text" id="faVehicle" placeholder="e.g. 2021 Toyota Land Cruiser Prado TX-L">
+        </div>
+        <div class="form-group form-full">
+          <button type="submit" class="btn btn-gold" style="width: 100%;">
+            Submit Financing Inquiry
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Kayan &amp; Njogu Motors. Karen &amp; Ngong Road Junction, Nairobi, Kenya.</p>
+      <p><a href="admin.html" style="color: var(--accent-gold);">Staff Admin Login 🔐</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("price")) {
+        document.getElementById("fPriceRange").value = urlParams.get("price");
+        document.getElementById("fPriceInput").value = urlParams.get("price");
+      }
+
+      function updateCalc() {
+        const price = Number(document.getElementById("fPriceInput").value) || 12000000;
+        const depPct = Number(document.getElementById("fDepositRange").value);
+        const depAmt = (price * depPct) / 100;
+        const principal = price - depAmt;
+        const term = Number(document.getElementById("fTermRange").value);
+        const rate = Number(document.getElementById("fRateRange").value);
+        const rMonthly = (rate / 100) / 12;
+
+        let monthly = 0;
+        if (rMonthly > 0) {
+          const comp = Math.pow(1 + rMonthly, term);
+          monthly = principal * ((rMonthly * comp) / (comp - 1));
+        } else {
+          monthly = principal / term;
+        }
+
+        const totalRepaid = (monthly * term) + depAmt;
+        const totalInterest = (monthly * term) - principal;
+
+        document.getElementById("fPriceDisplay").textContent = "KSh " + price.toLocaleString();
+        document.getElementById("fDepositDisplay").textContent = `KSh ${depAmt.toLocaleString()} (${depPct}%)`;
+        document.getElementById("fTermDisplay").textContent = `${term} Months (${(term/12).toFixed(1)} Yrs)`;
+        document.getElementById("fRateDisplay").textContent = `${rate.toFixed(1)}%`;
+
+        document.getElementById("fMonthlyResult").textContent = "KSh " + Math.round(monthly).toLocaleString();
+        document.getElementById("fBPrice").textContent = "KSh " + price.toLocaleString();
+        document.getElementById("fBDeposit").textContent = "KSh " + depAmt.toLocaleString();
+        document.getElementById("fBPrincipal").textContent = "KSh " + principal.toLocaleString();
+        document.getElementById("fBInterest").textContent = "KSh " + Math.round(totalInterest).toLocaleString();
+        document.getElementById("fBTotal").textContent = "KSh " + Math.round(totalRepaid).toLocaleString();
+      }
+
+      document.getElementById("fPriceRange").addEventListener("input", function() {
+        document.getElementById("fPriceInput").value = this.value;
+        updateCalc();
+      });
+      document.getElementById("fPriceInput").addEventListener("input", function() {
+        document.getElementById("fPriceRange").value = this.value;
+        updateCalc();
+      });
+      document.getElementById("fDepositRange").addEventListener("input", updateCalc);
+      document.getElementById("fTermRange").addEventListener("input", updateCalc);
+      document.getElementById("fRateRange").addEventListener("input", updateCalc);
+
+      document.getElementById("financeApplicationForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Thank you! Your financing pre-approval application has been received. Symo Miogo will reach out with the required bank document checklist.");
+        this.reset();
+      });
+
+      updateCalc();
+    });
+  </script>
+</body>
+</html>

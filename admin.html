@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Control Panel | Kayan &amp; Njogu Motors Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="admin-navbar">
+    <div class="admin-brand">
+      <div class="admin-brand-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <h2>KAYAN &amp; NJOGU <span>MOTORS</span></h2>
+        <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Executive Operations &bull; Nairobi</span>
+      </div>
+    </div>
+
+    <div class="admin-nav-actions">
+      <div class="admin-user-badge">
+        <div class="user-status-dot"></div>
+        <span id="adminUserBadgeText"><strong>Kayan Njogu</strong> (Authenticated)</span>
+      </div>
+
+      <a href="index.html" class="btn-outline" style="font-size: 0.85rem; padding: 7px 14px;">
+        View Live Showroom ↗
+      </a>
+
+      <button class="btn-action delete" id="btnResetData" style="padding: 7px 14px;" title="Reset demo inventory & enquiries">
+        ↺ Reset Data
+      </button>
+
+      <a href="/auth/logout" class="btn-outline" style="font-size: 0.85rem; padding: 7px 14px; border-color: rgba(239,68,68,0.4); color: #f87171;">
+        🔒 Logout
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-container">
+    
+    <!-- Top Stats Overview -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-info">
+          <p>Total Fleet</p>
+          <h3 id="statTotalCars">0</h3>
+        </div>
+        <div class="stat-card-icon icon-gold">🏎️</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-info">
+          <p>Active Fleet Value</p>
+          <h3 id="statTotalValue" style="font-size: 1.45rem;">KSh 0</h3>
+        </div>
+        <div class="stat-card-icon icon-emerald">💰</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-info">
+          <p>Active Inquiries</p>
+          <h3 id="statInquiries">0</h3>
+        </div>
+        <div class="stat-card-icon icon-sky">📩</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-info">
+          <p>Pending Test Drives</p>
+          <h3 id="statTestDrives">0</h3>
+        </div>
+        <div class="stat-card-icon icon-amber">⏱️</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-info">
+          <p>M-Pesa Deposits</p>
+          <h3 id="statPaymentsTotal" style="font-size: 1.4rem; color: #22c55e;">KSh 0</h3>
+        </div>
+        <div class="stat-card-icon" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3);">💳</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="admin-tabs" id="adminTabs">
+      <button class="admin-tab-btn active" data-tab="tab-inventory">
+        <span>🚗 Fleet Inventory</span>
+        <span class="tab-badge" id="badgeCarsCount">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-inquiries">
+        <span>📩 Customer Inquiries</span>
+        <span class="tab-badge" id="badgeInquiriesCount">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-drives">
+        <span>⏱️ Test Drive Bookings</span>
+        <span class="tab-badge" id="badgeDrivesCount">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-sell">
+        <span>💰 Consignment Submissions</span>
+        <span class="tab-badge" id="badgeSellCount">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-payments">
+        <span>💳 M-Pesa &amp; Deposits</span>
+        <span class="tab-badge" id="badgePaymentsCount">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-imports">
+        <span>🌐 International Imports</span>
+        <span class="tab-badge" id="badgeImportsCount">6</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-analytics">
+        <span>📊 Inventory Analytics</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-security" id="btnTabSecurity">
+        <span>🛡️ Staff &amp; Security</span>
+        <span class="tab-badge" id="badgeStaffCount">0</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: FLEET INVENTORY -->
+    <section class="tab-pane active" id="tab-inventory">
+      <div class="section-bar">
+        <div>
+          <h3>Vehicle Inventory Management</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Add, update prices, change status, or manage showroom specifications.</p>
+        </div>
+        <div class="section-actions">
+          <input type="text" id="adminSearchCars" class="admin-search-input" placeholder="Search by make, model, registration...">
+          <select id="adminFilterStatus" class="admin-search-input" style="min-width: 150px;">
+            <option value="">All Statuses</option>
+            <option value="Available">Available</option>
+            <option value="Reserved">Reserved</option>
+            <option value="Sold">Sold</option>
+          </select>
+          <button class="btn-gold" id="btnAddNewCar">
+            + Add New Vehicle
+          </button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Make &amp; Model</th>
+              <th>Year</th>
+              <th>Reg Plate</th>
+              <th>Price (KES)</th>
+              <th>Mileage</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryTableBody">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: INQUIRIES -->
+    <section class="tab-pane" id="tab-inquiries">
+      <div class="section-bar">
+        <div>
+          <h3>Customer Enquiries &amp; Leads</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Review client messages, WhatsApp enquiries, and direct buying interests.</p>
+        </div>
+        <div class="section-actions">
+          <select id="adminFilterInquiryStatus" class="admin-search-input" style="min-width: 160px;">
+            <option value="">All Inquiries</option>
+            <option value="New">New</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Ref #</th>
+              <th>Customer</th>
+              <th>Contact Details</th>
+              <th>Vehicle / Subject</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inquiriesTableBody">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: TEST DRIVES -->
+    <section class="tab-pane" id="tab-drives">
+      <div class="section-bar">
+        <div>
+          <h3>Test Drive Reservations</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Schedule, approve, and track showroom private viewings.</p>
+        </div>
+        <div class="section-actions">
+          <select id="adminFilterDriveStatus" class="admin-search-input" style="min-width: 160px;">
+            <option value="">All Bookings</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Vehicle Requested</th>
+              <th>Date &amp; Time</th>
+              <th>Driver's License</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="testDrivesTableBody">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4: CONSIGNMENTS (SELL YOUR CAR) -->
+    <section class="tab-pane" id="tab-sell">
+      <div class="section-bar">
+        <div>
+          <h3>"Sell Your Car" Client Submissions</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Appraisals and consignment offers submitted by vehicle owners in Kenya.</p>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Owner Name</th>
+              <th>Vehicle Details</th>
+              <th>Reg Plate</th>
+              <th>Mileage</th>
+              <th>Asking Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="sellSubmissionsTableBody">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 5: M-PESA & DEPOSITS -->
+    <section class="tab-pane" id="tab-payments">
+      <div class="section-bar">
+        <div>
+          <h3>M-Pesa Vehicle Reservations &amp; Deposits</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Live audit of reservation fees paid via Safaricom Daraja STK Push.</p>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Receipt / Ref #</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Reserved Vehicle</th>
+              <th>Amount (KES)</th>
+              <th>Payment Method</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsTableBody">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 6: ANALYTICS -->
+    <section class="tab-pane" id="tab-analytics">
+      <div class="section-bar">
+        <div>
+          <h3>Fleet &amp; Inventory Analytics</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Breakdown of current stock by brand, powertrain, and status.</p>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <h4>Fleet Distribution by Make</h4>
+          <div id="analyticsMakes"></div>
+        </div>
+
+        <div class="analytics-card">
+          <h4>Fleet Distribution by Status</h4>
+          <div id="analyticsStatuses"></div>
+        </div>
+
+        <div class="analytics-card">
+          <h4>Powertrain / Fuel Distribution</h4>
+          <div id="analyticsFuels"></div>
+        </div>
+
+        <div class="analytics-card">
+          <h4>Price Segment Breakdown</h4>
+          <div id="analyticsPriceSegments"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: INTERNATIONAL VEHICLE IMPORTS -->
+    <section class="tab-pane" id="tab-imports">
+      <div class="section-bar">
+        <div>
+          <h3>International Vehicle Import Module</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Direct sourcing desk for Japan, UK, Dubai, and South Africa auction networks with live API sync and 7-stage container tracking.</p>
+        </div>
+        <div class="section-actions">
+          <input type="text" id="adminSearchImports" class="admin-search-input" placeholder="Search overseas stock...">
+          <select id="adminFilterImportCountry" class="admin-search-input" style="min-width: 140px;">
+            <option value="ALL">All Countries</option>
+            <option value="JP">🇯🇵 Japan</option>
+            <option value="GB">🇬🇧 United Kingdom</option>
+            <option value="AE">🇦🇪 Dubai / UAE</option>
+            <option value="ZA">🇿🇦 South Africa</option>
+          </select>
+          <select id="adminFilterImportSource" class="admin-search-input" style="min-width: 130px;">
+            <option value="ALL">All Sourcing</option>
+            <option value="API">Live API Feeds</option>
+            <option value="Manual">Showroom Direct</option>
+          </select>
+          <button class="btn-outline" id="btnSyncImportFeedsAdmin" style="display: inline-flex; align-items: center; gap: 6px;">
+            ⚡ Sync Auction Feeds
+          </button>
+          <button class="btn-gold" id="btnAddNewImportCar">
+            + Add Overseas Vehicle
+          </button>
+        </div>
+      </div>
+
+      <!-- Sourcing Providers Status Bar -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 24px;">
+        <div style="background: #121829; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #f8fafc;">🇯🇵 USS Japan Auctions</span>
+            <span style="font-size: 0.72rem; color: #34d399; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px;">Live API</span>
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Rate: 1 JPY = 0.88 KES &bull; Port: Yokohama</div>
+        </div>
+
+        <div style="background: #121829; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #f8fafc;">🇬🇧 BCA British Auctions</span>
+            <span style="font-size: 0.72rem; color: #34d399; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px;">Live API</span>
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Rate: 1 GBP = 168.50 KES &bull; Port: Southampton</div>
+        </div>
+
+        <div style="background: #121829; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #f8fafc;">🇦🇪 Emirates Auction UAE</span>
+            <span style="font-size: 0.72rem; color: #34d399; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px;">Live API</span>
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Rate: 1 AED = 35.40 KES &bull; Port: Jebel Ali</div>
+        </div>
+
+        <div style="background: #121829; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #f8fafc;">🇿🇦 WesBank SA Commercial</span>
+            <span style="font-size: 0.72rem; color: #34d399; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px;">Live API</span>
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Rate: 1 ZAR = 7.35 KES &bull; Port: Durban</div>
+        </div>
+      </div>
+
+      <!-- Sub-table 1: Overseas Stock Fleet -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 30px 0 14px 0;">
+        <h4 style="font-size: 1.1rem; color: #f8fafc;">1. Overseas Vehicle Inventory</h4>
+        <span style="font-size: 0.8rem; color: #d4af37;" id="adminImportCountText">6 Active Listings</span>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Photo</th>
+              <th>Make &amp; Model</th>
+              <th>Year</th>
+              <th>Foreign Price</th>
+              <th>Landed Cost (KES)</th>
+              <th>Sourcing</th>
+              <th>Grade</th>
+              <th>Port</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="importVehiclesTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sub-table 2: Customer Bespoke Sourcing Requests -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 40px 0 14px 0;">
+        <h4 style="font-size: 1.1rem; color: #f8fafc;">2. Customer Import Sourcing Requests</h4>
+        <span style="font-size: 0.8rem; color: #38bdf8;" id="adminRequestCountText">Live Client Intake</span>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Request ID</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Hub Preference</th>
+              <th>Requested Model</th>
+              <th>Min Year</th>
+              <th>Max Budget</th>
+              <th>Assigned Desk</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="importRequestsTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sub-table 3: Active Ocean Shipments & 7-Stage Pipeline Dispatcher -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 40px 0 14px 0;">
+        <h4 style="font-size: 1.1rem; color: #f8fafc;">3. Active Shipments &amp; 7-Stage Import Dispatcher</h4>
+        <span style="font-size: 0.8rem; color: #34d399;">High Seas &amp; Kilindini Port Tracking</span>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Client</th>
+              <th>Vehicle</th>
+              <th>Hub / Port</th>
+              <th>Vessel / B/L</th>
+              <th>Current Stage</th>
+              <th>Location</th>
+              <th>ETA Mombasa</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="importOrdersTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 8: STAFF SECURITY, 48-HOUR INVITATIONS & AUDIT LOGS (CEO SUPER ADMIN) -->
+    <section class="tab-pane" id="tab-security">
+      <div class="section-bar">
+        <div>
+          <h3>Staff Access, 48-Hour Invitations &amp; Audit Security</h3>
+          <p style="font-size: 0.85rem; color: #94a3b8;">Super Admin CEO Control Desk (<strong>kayannjogu019@gmail.com</strong>). Staff accounts require invitation and mandatory Authenticator 2FA.</p>
+        </div>
+      </div>
+
+      <!-- CEO Invite Staff Box -->
+      <div class="analytics-card" style="margin-bottom: 28px; border-color: rgba(212, 175, 55, 0.35);">
+        <h4>Invite New Staff Member (48-Hour Expiring Link)</h4>
+        <form id="ceoInviteStaffForm" style="display: grid; grid-template-columns: 2fr 1.2fr auto; gap: 14px; align-items: end;" class="admin-form-grid">
+          <div class="form-group">
+            <label for="inviteEmail">Staff Email Address *</label>
+            <input type="email" id="inviteEmail" required placeholder="e.g. symo.miogo@kayannjogumotors.co.ke">
+          </div>
+          <div class="form-group">
+            <label for="inviteRole">Assigned System Role *</label>
+            <select id="inviteRole" required>
+              <option value="manager">Manager (Operations &amp; Imports)</option>
+              <option value="sales_rep">Sales Representative (Showroom &amp; Leads)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-gold" id="btnGenerateStaffInvite" style="height: 42px; width: 100%; justify-content: center;">
+              ✉️ Generate 48-Hour Invite
+            </button>
+          </div>
+        </form>
+        <div id="inviteLinkResult" style="display: none; margin-top: 16px; padding: 14px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); border-radius: 8px; font-size: 0.88rem;">
+          <div style="color: #34d399; font-weight: 700; margin-bottom: 6px;">✅ Secure Invitation Created (Valid for 48 Hours)</div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <code id="generatedInviteUrl" style="color: #fff; background: #070a13; padding: 6px 10px; border-radius: 6px; word-break: break-all; flex: 1;"></code>
+            <button type="button" class="btn-outline" id="btnCopyInviteUrl" style="padding: 6px 14px;">Copy Link</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Accounts Table -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 24px 0 12px 0;">
+        <h4 style="font-size: 1.05rem; color: #f8fafc;">1. Authorized Staff Directory</h4>
+      </div>
+      <div class="table-card" style="margin-bottom: 30px;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>2FA Authenticator</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="staffUsersTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Staff Invitations Table -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 24px 0 12px 0;">
+        <h4 style="font-size: 1.05rem; color: #f8fafc;">2. Staff Invitations (48-Hour Expiry Log)</h4>
+      </div>
+      <div class="table-card" style="margin-bottom: 30px;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Invited Email</th>
+              <th>Role</th>
+              <th>Expires At</th>
+              <th>Status</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody id="staffInvitationsTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Audit Log Table -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 24px 0 12px 0;">
+        <h4 style="font-size: 1.05rem; color: #f8fafc;">3. Security &amp; Operations Audit Trail</h4>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Timestamp (UTC)</th>
+              <th>User</th>
+              <th>Action</th>
+              <th>Resource</th>
+              <th>IP Address</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="auditLogsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: ADD / EDIT VEHICLE -->
+  <div class="admin-modal-backdrop" id="carFormModal">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h3 id="carModalTitle">Add New Vehicle to Showroom</h3>
+        <button class="modal-close" id="btnCloseCarModal">&times;</button>
+      </div>
+
+      <form id="vehicleAdminForm">
+        <div class="admin-modal-body">
+          <input type="hidden" id="editVehicleId">
+
+          <div class="admin-form-grid">
+            <div class="form-group">
+              <label>Stock ID / Ref *</label>
+              <input type="text" id="vId" required placeholder="e.g. KNM-111">
+            </div>
+
+            <div class="form-group">
+              <label>Make *</label>
+              <input type="text" id="vMake" required placeholder="e.g. Toyota">
+            </div>
+
+            <div class="form-group">
+              <label>Model &amp; Trim *</label>
+              <input type="text" id="vModel" required placeholder="e.g. Land Cruiser 300 GR Sport">
+            </div>
+
+            <div class="form-group">
+              <label>Manufacturing Year *</label>
+              <input type="number" id="vYear" required min="2010" max="2027" placeholder="e.g. 2022">
+            </div>
+
+            <div class="form-group">
+              <label>Price in KES (KSh) *</label>
+              <input type="number" id="vPrice" required placeholder="e.g. 22500000">
+            </div>
+
+            <div class="form-group">
+              <label>Mileage (km) *</label>
+              <input type="number" id="vMileage" required placeholder="e.g. 18500">
+            </div>
+
+            <div class="form-group">
+              <label>Engine Specification *</label>
+              <input type="text" id="vEngine" required placeholder="e.g. 3.3L V6 Twin-Turbo Diesel (3,346 cc)">
+            </div>
+
+            <div class="form-group">
+              <label>Fuel Type *</label>
+              <select id="vFuel" required>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Electric">Electric</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Transmission *</label>
+              <input type="text" id="vTransmission" required placeholder="e.g. 10-Speed Automatic">
+            </div>
+
+            <div class="form-group">
+              <label>Drivetrain *</label>
+              <select id="vDrive" required>
+                <option value="4WD">4WD</option>
+                <option value="AWD">AWD</option>
+                <option value="2WD">2WD</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Body Type *</label>
+              <select id="vBody" required>
+                <option value="SUV">SUV</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Crossover">Crossover</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Pickup">Pickup</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Exterior Color *</label>
+              <input type="text" id="vColor" required placeholder="e.g. Precious White Pearl">
+            </div>
+
+            <div class="form-group">
+              <label>Import Status *</label>
+              <input type="text" id="vImportStatus" required placeholder="e.g. Fresh Japan Import">
+            </div>
+
+            <div class="form-group">
+              <label>Registration Plate Status *</label>
+              <input type="text" id="vRegistration" required placeholder="e.g. Unregistered (Ready for KDF)">
+            </div>
+
+            <div class="form-group">
+              <label>Showroom Availability Status *</label>
+              <select id="vStatus" required>
+                <option value="Available">Available</option>
+                <option value="Reserved">Reserved</option>
+                <option value="Sold">Sold</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Marketing Badge</label>
+              <select id="vBadge">
+                <option value="">None</option>
+                <option value="Featured">Featured</option>
+                <option value="New Arrival">New Arrival</option>
+                <option value="Popular">Popular</option>
+                <option value="Special Offer">Special Offer</option>
+              </select>
+            </div>
+
+            <div class="form-group form-full">
+              <label>Primary Image URL *</label>
+              <input type="url" id="vImage1" required placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div class="form-group form-full">
+              <label>Additional Image URLs (Comma-separated)</label>
+              <input type="text" id="vAdditionalImages" placeholder="https://..., https://...">
+            </div>
+
+            <div class="form-group form-full">
+              <label>Key Features (Comma-separated) *</label>
+              <textarea id="vFeatures" rows="3" required placeholder="E-KDSS Suspension, Heads-Up Display, 360 Camera, Heated Leather Seats..."></textarea>
+            </div>
+
+            <div class="form-group form-full">
+              <label>Showroom Vehicle Description *</label>
+              <textarea id="vDescription" rows="4" required placeholder="Detailed overview of vehicle provenance, condition, and equipment..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-outline" id="btnCancelCarForm">Cancel</button>
+          <button type="submit" class="btn-gold" id="btnSaveCar">Save Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT OVERSEAS IMPORT VEHICLE -->
+  <div class="admin-modal-backdrop" id="importCarFormModal">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h3 id="importCarModalTitle">Add Overseas Vehicle Listing</h3>
+        <button class="modal-close" id="btnCloseImportCarModal">&times;</button>
+      </div>
+
+      <form id="importCarAdminForm">
+        <div class="admin-modal-body">
+          <input type="hidden" id="editImportCarId">
+
+          <div class="admin-form-grid">
+            <div class="form-group">
+              <label>Overseas Stock Ref *</label>
+              <input type="text" id="impId" required placeholder="e.g. IMP-JP-203">
+            </div>
+
+            <div class="form-group">
+              <label>Sourcing Hub *</label>
+              <select id="impCountry" required>
+                <option value="JP">🇯🇵 Japan (USS Auctions)</option>
+                <option value="GB">🇬🇧 United Kingdom (BCA UK)</option>
+                <option value="AE">🇦🇪 Dubai / UAE (GCC Spec)</option>
+                <option value="ZA">🇿🇦 South Africa (WesBank SA)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Make *</label>
+              <input type="text" id="impMake" required placeholder="e.g. Toyota">
+            </div>
+
+            <div class="form-group">
+              <label>Model *</label>
+              <input type="text" id="impModel" required placeholder="e.g. Land Cruiser 300 ZX">
+            </div>
+
+            <div class="form-group">
+              <label>Year *</label>
+              <input type="number" id="impYear" required value="2022">
+            </div>
+
+            <div class="form-group">
+              <label>Foreign Currency *</label>
+              <select id="impCurrency" required>
+                <option value="JPY">JPY (Japanese Yen ¥)</option>
+                <option value="GBP">GBP (British Pound £)</option>
+                <option value="AED">AED (Emirati Dirham)</option>
+                <option value="ZAR">ZAR (South African Rand R)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Foreign Purchase Price *</label>
+              <input type="number" id="impForeignPrice" required placeholder="e.g. 8500000">
+            </div>
+
+            <div class="form-group">
+              <label>Mileage (KM) *</label>
+              <input type="number" id="impMileage" required placeholder="e.g. 18000">
+            </div>
+
+            <div class="form-group">
+              <label>Engine Specification *</label>
+              <input type="text" id="impEngine" required placeholder="e.g. 3.5L V6 Twin-Turbo (3,444 cc)">
+            </div>
+
+            <div class="form-group">
+              <label>Fuel Type *</label>
+              <select id="impFuel" required>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Transmission *</label>
+              <select id="impTransmission" required>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Drive *</label>
+              <select id="impDrive" required>
+                <option value="4WD">4WD / 4x4</option>
+                <option value="AWD">AWD</option>
+                <option value="2WD">2WD</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Export Port *</label>
+              <input type="text" id="impPort" required placeholder="e.g. Yokohama Port">
+            </div>
+
+            <div class="form-group">
+              <label>Auction / Inspection Grade *</label>
+              <input type="text" id="impAuctionGrade" required placeholder="e.g. Grade 4.5 / Pristine">
+            </div>
+
+            <div class="form-group">
+              <label>Sourcing Type *</label>
+              <select id="impSourceType" required>
+                <option value="Manual">Showroom Direct Sourcing</option>
+                <option value="API">Live API Feed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Shipment Status *</label>
+              <select id="impStatus" required>
+                <option value="Overseas Stock">Overseas Stock</option>
+                <option value="In Transit">In Transit (High Seas)</option>
+                <option value="Arrived Mombasa">Arrived Mombasa</option>
+              </select>
+            </div>
+
+            <div class="form-group form-full">
+              <label>Primary Image URL *</label>
+              <input type="url" id="impImage" required placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div class="form-group form-full">
+              <label>Overseas Vehicle Sourcing Description *</label>
+              <textarea id="impDescription" rows="3" required placeholder="Describe vehicle equipment, auction provenance, condition rating, and shipping schedule..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-outline" id="btnCancelImportCarModal">Cancel</button>
+          <button type="submit" class="btn-gold" id="btnSaveImportCar">Save Overseas Listing</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADVANCE / UPDATE SHIPMENT PIPELINE -->
+  <div class="admin-modal-backdrop" id="shipmentStageModal">
+    <div class="admin-modal" style="max-width: 580px;">
+      <div class="admin-modal-header">
+        <h3>Advance Import Shipment <span>Stage</span></h3>
+        <button class="modal-close" id="btnCloseShipmentModal">&times;</button>
+      </div>
+
+      <form id="shipmentAdminForm">
+        <div class="admin-modal-body">
+          <input type="hidden" id="shipmentOrderId">
+
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; margin-bottom: 16px;">
+            <div style="font-size: 0.8rem; color: #94a3b8;">Updating Order:</div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: #d4af37;" id="shipmentModalOrderRef">KNM-IMP-2026-01</div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Current Shipment Stage (1 to 7) *</label>
+            <select id="shipmentStageNumber" required style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;">
+              <option value="1">Stage 1: Vehicle Selected &amp; Inspected</option>
+              <option value="2">Stage 2: Quotation &amp; Deposit Confirmed</option>
+              <option value="3">Stage 3: Purchased Abroad &amp; Export License Issued</option>
+              <option value="4">Stage 4: Shipping in Progress (High Seas)</option>
+              <option value="5">Stage 5: Arrived Mombasa Port (Kilindini)</option>
+              <option value="6">Stage 6: KRA Customs Clearance &amp; NTSA Plates</option>
+              <option value="7">Stage 7: Delivered to Nairobi Showroom / Client</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Current Location / Port *</label>
+            <input type="text" id="shipmentLocation" required placeholder="e.g. Kilindini Harbour, Berth 21" style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Shipping Vessel Name</label>
+              <input type="text" id="shipmentVessel" placeholder="e.g. MV Hoegh Target" style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;">
+            </div>
+            <div class="form-group">
+              <label>Bill of Lading (B/L) #</label>
+              <input type="text" id="shipmentBol" placeholder="e.g. BOL-NBO-882910" style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>ETA Mombasa</label>
+            <input type="text" id="shipmentEta" placeholder="e.g. Estimated 8 Days" style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;">
+          </div>
+
+          <div class="form-group">
+            <label>Milestone Activity Notes *</label>
+            <textarea id="shipmentNotes" rows="3" required placeholder="e.g. Vessel berthed at Kilindini. Offloaded to CFS warehouse for KRA physical inspection..." style="width: 100%; padding: 10px; background: #070a12; color: #fff; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; resize: vertical;"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-outline" id="btnCancelShipmentModal">Cancel</button>
+          <button type="submit" class="btn-gold" id="btnSaveShipmentStage">Update Milestone</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

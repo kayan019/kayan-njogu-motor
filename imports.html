@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>International Vehicle Imports | Kayan &amp; Njogu Motors Nairobi</title>
+  <meta name="description" content="Direct overseas luxury vehicle sourcing from Japan, United Kingdom, Dubai / UAE, and South Africa. KRA duty calculation, live auction sync, and real-time 7-stage shipment tracking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Info Bar -->
+  <aside class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <div class="top-bar-item">📍 Karen &amp; Ngong Road Junction, Nairobi, Kenya</div>
+        <div class="top-bar-item">🕒 Mon - Sat: 8:00 AM – 6:30 PM</div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">📞 <a href="tel:+254712345678">+254 712 345 678</a></div>
+        <div class="currency-toggle" id="currencyToggle">
+          <button class="currency-btn active" data-currency="KES">KES</button>
+          <button class="currency-btn" data-currency="USD">USD</button>
+        </div>
+        <a href="admin.html" class="btn-sm btn-outline" style="padding: 2px 10px; font-size: 0.75rem;">🔐 Admin Portal</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-crest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>KAYAN &amp; NJOGU <span>MOTORS</span></h1>
+          <span class="brand-tagline">International Imports Hub</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html">Local Showroom</a></li>
+        <li><a href="imports.html" class="active">International Imports</a></li>
+        <li><a href="new-arrivals.html">New Arrivals</a></li>
+        <li><a href="financing.html">Financing</a></li>
+        <li><a href="sell-your-car.html">Sell Your Car</a></li>
+        <li><a href="about.html">About &amp; Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#trackSection" class="btn btn-outline btn-sm">Track Shipment</a>
+        <a href="#wishlistSection" class="btn btn-gold btn-sm">Request Import</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header" style="background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.12) 0%, rgba(7, 10, 18, 0.98) 75%); border-bottom: 1px solid var(--border-medium); padding: 50px 0;">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; <span>International Vehicle Imports</span>
+      </div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(212, 175, 55, 0.12); border: 1px solid var(--accent-gold-border); padding: 6px 14px; border-radius: var(--radius-full); margin-bottom: 16px;">
+        <span style="font-size: 0.9rem;">🌐</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.05em; text-transform: uppercase;">Direct Overseas Sourcing &amp; Duty Clearing</span>
+      </div>
+      <h1 class="page-header-title">Global Fleet <span>Direct To Nairobi</span></h1>
+      <p class="page-header-desc" style="max-width: 820px;">
+        Source your bespoke luxury vehicle directly from verified auto auction houses and certified dealer networks in <strong>Japan</strong>, the <strong>United Kingdom</strong>, <strong>Dubai / UAE</strong>, and <strong>South Africa</strong>. Transparent CIF pricing, verified auction sheets, JEVIC certified odometers, and real-time end-to-end container tracking from high seas to Mombasa port and Nairobi doorstep.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Portal Content -->
+  <main class="container" style="margin-top: 40px; margin-bottom: 80px;">
+
+    <!-- Sourcing Hub Cards -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">Overseas Sourcing <span style="color: var(--accent-gold);">Destinations</span></h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">Select a country hub to filter live overseas inventory and view exchange rate benchmarks</p>
+      </div>
+      <button class="btn btn-outline btn-sm" id="openCalculatorBtn" style="display: inline-flex; align-items: center; gap: 8px;">
+        <span>🧮</span> Landed Cost Calculator
+      </button>
+    </div>
+
+    <div class="import-country-cards" id="countryCardsContainer">
+      <!-- Populated dynamically via JS -->
+      <div class="country-card active" data-country="ALL">
+        <div class="country-card-header">
+          <div class="country-flag-lg">🌍</div>
+          <span class="country-badge-rate">All Hubs</span>
+        </div>
+        <div class="country-card-title">All Overseas Stock</div>
+        <div class="country-card-port"><span>🚢</span> Worldwide Fleet</div>
+        <div class="country-card-desc">Comprehensive access to all Japanese, British, Emirati, and South African sourced inventory.</div>
+        <div class="country-transit-pill"><span>⚡</span> Full Global Inventory</div>
+      </div>
+
+      <div class="country-card" data-country="JP">
+        <div class="country-card-header">
+          <div class="country-flag-lg">🇯🇵</div>
+          <span class="country-badge-rate">1 JPY = 0.88 KES</span>
+        </div>
+        <div class="country-card-title">Japan Auctions</div>
+        <div class="country-card-port"><span>🚢</span> Yokohama / Kobe Port</div>
+        <div class="country-card-desc">Authentic Grade 4.5+ auction SUVs, JEVIC certified odometers, and pristine Toyotas.</div>
+        <div class="country-transit-pill"><span>⏱️</span> 32 Days Shipping to Mombasa</div>
+      </div>
+
+      <div class="country-card" data-country="GB">
+        <div class="country-card-header">
+          <div class="country-flag-lg">🇬🇧</div>
+          <span class="country-badge-rate">1 GBP = 168.50 KES</span>
+        </div>
+        <div class="country-card-title">United Kingdom</div>
+        <div class="country-card-port"><span>🚢</span> Southampton / Tilbury</div>
+        <div class="country-card-desc">Bespoke British prestige (Range Rover, Mercedes AMG, BMW) with main dealer service logs.</div>
+        <div class="country-transit-pill"><span>⏱️</span> 28 Days Ro-Ro / Container</div>
+      </div>
+
+      <div class="country-card" data-country="AE">
+        <div class="country-card-header">
+          <div class="country-flag-lg">🇦🇪</div>
+          <span class="country-badge-rate">1 AED = 35.40 KES</span>
+        </div>
+        <div class="country-card-title">Dubai / UAE</div>
+        <div class="country-card-port"><span>🚢</span> Jebel Ali Port, Dubai</div>
+        <div class="country-card-desc">Desert-spec heavy cooling, executive V8/V6 Land Cruisers, and luxury flagships.</div>
+        <div class="country-transit-pill"><span>⚡</span> 18-Day Express Vessel</div>
+      </div>
+
+      <div class="country-card" data-country="ZA">
+        <div class="country-card-header">
+          <div class="country-flag-lg">🇿🇦</div>
+          <span class="country-badge-rate">1 ZAR = 7.35 KES</span>
+        </div>
+        <div class="country-card-title">South Africa</div>
+        <div class="country-card-port"><span>🚢</span> Durban Port</div>
+        <div class="country-card-desc">Heavy-duty 4x4 double cab pickups (Hilux GD-6, Land Cruiser 79 Series, Ranger Raptor).</div>
+        <div class="country-transit-pill"><span>⏱️</span> 14 Days Direct Coastal</div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="filter-box" style="margin-bottom: 30px;">
+      <div class="filter-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr auto;">
+        <div class="filter-input-group">
+          <label>Search Make / Model</label>
+          <input type="text" id="importSearchInput" placeholder="e.g. Land Cruiser 300, Range Rover...">
+        </div>
+
+        <div class="filter-input-group">
+          <label>Country Source</label>
+          <select id="importCountryFilter">
+            <option value="ALL">All Countries</option>
+            <option value="JP">🇯🇵 Japan</option>
+            <option value="GB">🇬🇧 United Kingdom</option>
+            <option value="AE">🇦🇪 Dubai / UAE</option>
+            <option value="ZA">🇿🇦 South Africa</option>
+          </select>
+        </div>
+
+        <div class="filter-input-group">
+          <label>Sourcing Type</label>
+          <select id="importSourceFilter">
+            <option value="ALL">All Sourcing</option>
+            <option value="API">Live API Feeds</option>
+            <option value="Manual">Showroom Direct</option>
+          </select>
+        </div>
+
+        <div class="filter-input-group">
+          <label>Shipment Status</label>
+          <select id="importStatusFilter">
+            <option value="ALL">All Statuses</option>
+            <option value="Overseas Stock">Overseas Stock</option>
+            <option value="In Transit">In Transit (High Seas)</option>
+            <option value="Arrived Mombasa">Arrived Mombasa</option>
+          </select>
+        </div>
+
+        <div class="filter-input-group">
+          <label>Max Landed Budget (KES)</label>
+          <select id="importBudgetFilter">
+            <option value="">Any Budget</option>
+            <option value="5000000">Under KES 5.0M</option>
+            <option value="8000000">Under KES 8.0M</option>
+            <option value="12000000">Under KES 12.0M</option>
+            <option value="18000000">Under KES 18.0M</option>
+            <option value="25000000">Under KES 25.0M</option>
+          </select>
+        </div>
+
+        <div class="filter-input-group" style="align-self: flex-end;">
+          <button class="btn btn-outline" id="resetImportFiltersBtn" style="height: 48px; width: 100%;">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Filter Counter & Live API Sync Status -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+      <div style="color: var(--text-muted); font-size: 0.95rem;">
+        Showing <span id="vehicleCountText" style="color: var(--accent-gold); font-weight: 700;">6</span> verified overseas vehicles available for Kenya import
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 4px 12px; border-radius: var(--radius-full); border: 1px solid rgba(16, 185, 129, 0.3);">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399;"></span>
+          USS Japan, BCA UK &amp; Emirates Feeds Connected
+        </span>
+        <button class="btn-sm btn-outline" id="refreshStockBtn" style="padding: 4px 12px; font-size: 0.78rem;">🔄 Sync Feeds</button>
+      </div>
+    </div>
+
+    <!-- Overseas Vehicles Grid -->
+    <div class="cars-grid" id="importVehiclesGrid">
+      <!-- Injected dynamically via js/imports.js -->
+    </div>
+
+    <!-- No results container -->
+    <div id="noVehiclesFound" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); margin-top: 20px;">
+      <div style="font-size: 3rem; margin-bottom: 15px;">🚢</div>
+      <h3 style="font-size: 1.4rem; color: var(--text-main); margin-bottom: 10px;">No Overseas Stock Matches Criteria</h3>
+      <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 20px auto;">We have access to over 150,000 live auction listings across Tokyo, London, Dubai, and Durban weekly. Submit a bespoke sourcing request and we will find your exact vehicle within 24 hours.</p>
+      <button class="btn btn-gold" onclick="document.getElementById('wishlistSection').scrollIntoView({behavior: 'smooth'})">Submit Bespoke Sourcing Request</button>
+    </div>
+
+    <!-- Sourcing Wishlist Banner -->
+    <section class="wishlist-cta-box" id="wishlistSection">
+      <div class="wishlist-cta-text">
+        <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Can't find your exact specification?</span>
+        <h3>Bespoke Overseas <span>Vehicle Sourcing</span></h3>
+        <p>Tell us your exact target year, model, color, trim, and budget. Our executive sourcing desks in Tokyo, Southampton, and Dubai will place live auction bids and handle inspection, export certification, shipping, and KRA customs clearance for you.</p>
+      </div>
+      <div>
+        <button class="btn btn-gold btn-lg" id="openWishlistModalBtn">Submit Sourcing Request</button>
+      </div>
+    </section>
+
+    <!-- 7-Stage Live Shipment Tracker Section -->
+    <section class="shipment-tracker-container" id="trackSection">
+      <div style="text-align: center; max-width: 750px; margin: 0 auto 30px auto;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.75rem; color: #38bdf8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">
+          <span>🛰️</span> Live Vessel &amp; Customs Tracking
+        </span>
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">
+          Track Your <span>Import Shipment</span>
+        </h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Enter your Kayan &amp; Njogu Order Reference (e.g., <strong style="color: var(--accent-gold);">KNM-IMP-2026-01</strong>) or Ocean Bill of Lading number to view real-time voyage status, marine position, customs entry, and official documents.
+        </p>
+      </div>
+
+      <div class="tracker-search-box">
+        <input type="text" id="orderSearchInput" value="KNM-IMP-2026-01" placeholder="Enter Order # or Bill of Lading...">
+        <button class="btn btn-gold" id="trackOrderBtn">Track Vessel Status</button>
+      </div>
+
+      <!-- Live Order Info Display -->
+      <div id="trackingResultArea">
+        <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 24px; margin-bottom: 30px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.05em;">Order Reference</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-gold);" id="dispOrderId">KNM-IMP-2026-01</div>
+              <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 4px;" id="dispVehicleTitle">2022 Range Rover D350 Autobiography LWB</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.05em;">Shipment Status</div>
+              <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 0.85rem; padding: 6px 14px; border-radius: var(--radius-full); font-weight: 700;" id="dispCurrentStage">Shipping in Progress</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7-Stage Visual Track -->
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 20px;">7-Stage End-to-End Import Pipeline</h3>
+        <div class="stage-timeline-track" id="stageTimelineTrack" style="--progress-pct: 57%;">
+          <div class="stage-node completed" id="stageNode1">
+            <div class="stage-dot">✓</div>
+            <div class="stage-title">1. Vehicle Selected &amp; Inspected</div>
+          </div>
+          <div class="stage-node completed" id="stageNode2">
+            <div class="stage-dot">✓</div>
+            <div class="stage-title">2. Quotation &amp; Deposit Paid</div>
+          </div>
+          <div class="stage-node completed" id="stageNode3">
+            <div class="stage-dot">✓</div>
+            <div class="stage-title">3. Purchased Abroad &amp; Export Cert</div>
+          </div>
+          <div class="stage-node current" id="stageNode4">
+            <div class="stage-dot">4</div>
+            <div class="stage-title">4. Shipping in Progress (High Seas)</div>
+          </div>
+          <div class="stage-node" id="stageNode5">
+            <div class="stage-dot">5</div>
+            <div class="stage-title">5. Arrived Mombasa Port</div>
+          </div>
+          <div class="stage-node" id="stageNode6">
+            <div class="stage-dot">6</div>
+            <div class="stage-title">6. KRA Customs Clearance</div>
+          </div>
+          <div class="stage-node" id="stageNode7">
+            <div class="stage-dot">7</div>
+            <div class="stage-title">7. Delivered to Nairobi Showroom</div>
+          </div>
+        </div>
+
+        <!-- Vessel & Shipping Details Grid -->
+        <div class="shipment-meta-grid">
+          <div>
+            <div class="meta-item-label">Shipping Line / Vessel</div>
+            <div class="meta-item-val" id="dispVesselName">MV Hoegh Target</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Bill of Lading #</div>
+            <div class="meta-item-val highlight" id="dispBillOfLading">BOL-NBO-882910</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Current Location</div>
+            <div class="meta-item-val" id="dispLocation">Indian Ocean (En Route Mombasa)</div>
+          </div>
+          <div>
+            <div class="meta-item-label">ETA Kilindini Mombasa</div>
+            <div class="meta-item-val" id="dispEtaMombasa">Estimated 12 Days (Port Berth 21)</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Source Hub</div>
+            <div class="meta-item-val" id="dispSourceCountry">🇬🇧 United Kingdom (Southampton)</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Destination Depot</div>
+            <div class="meta-item-val" id="dispDestination">Karen &amp; Ngong Road, Nairobi</div>
+          </div>
+        </div>
+
+        <!-- Milestone Log & Official Documents -->
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-top: 30px;" class="tracking-subgrid">
+          <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 20px;">
+            <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <span>📋</span> Milestone Activity Log
+            </h4>
+            <div id="trackingMilestonesLog" style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="padding-left: 12px; border-left: 2px solid var(--accent-green); font-size: 0.85rem;">
+                <div style="color: var(--accent-green); font-weight: 700;">Stage 1: Vehicle Selected &amp; Pre-Shipment Inspection</div>
+                <div style="color: var(--text-muted);">BCA Nottingham UK — 140-point diagnostic check passed. Full Land Rover main dealer records verified.</div>
+              </div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--accent-green); font-size: 0.85rem;">
+                <div style="color: var(--accent-green); font-weight: 700;">Stage 2: Sourcing Deposit Confirmed</div>
+                <div style="color: var(--text-muted);">30% commitment deposit received and escrowed into Kayan &amp; Njogu Motors import account.</div>
+              </div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--accent-green); font-size: 0.85rem;">
+                <div style="color: var(--accent-green); font-weight: 700;">Stage 3: Export De-Registration &amp; JEVIC Inspection</div>
+                <div style="color: var(--text-muted);">UK DVLA export documentation processed. QISJ radiation &amp; roadworthiness certificate issued.</div>
+              </div>
+              <div style="padding-left: 12px; border-left: 2px solid var(--accent-gold); font-size: 0.85rem;">
+                <div style="color: var(--accent-gold); font-weight: 700;">Stage 4: Loaded on Ro-Ro Vessel (Southampton)</div>
+                <div style="color: var(--text-muted);">Loaded onto MV Hoegh Target. Ocean Bill of Lading BOL-NBO-882910 dispatched to Mombasa clearing agent.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 20px;">
+            <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <span>📁</span> Verified Sourcing Documents
+            </h4>
+            <div id="trackingDocumentsList" style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="#" class="btn-sm btn-outline" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px;" onclick="alert('Viewing authentic BCA Pre-Purchase Diagnostic Inspection Report for this vehicle.'); return false;">
+                <span>📄 BCA 140-Point Inspection</span>
+                <span style="color: var(--accent-gold); font-size: 0.75rem;">Verified</span>
+              </a>
+              <a href="#" class="btn-sm btn-outline" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px;" onclick="alert('Viewing verified QISJ / JEVIC Export Odometer Certificate.'); return false;">
+                <span>📄 QISJ Odometer Certificate</span>
+                <span style="color: var(--accent-gold); font-size: 0.75rem;">Verified</span>
+              </a>
+              <a href="#" class="btn-sm btn-outline" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px;" onclick="alert('Viewing Carrier Ocean Bill of Lading BOL-NBO-882910.'); return false;">
+                <span>📄 Ocean Bill of Lading (B/L)</span>
+                <span style="color: var(--accent-cyan); font-size: 0.75rem;">Dispatched</span>
+              </a>
+              <a href="#" class="btn-sm btn-outline" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px;" onclick="alert('KRA Customs Assessment IDF/Simba Entry will be generated upon Mombasa port berthing.'); return false;">
+                <span>📄 KRA Customs Simba Entry</span>
+                <span style="color: var(--text-dim); font-size: 0.75rem;">Pending Port Berthing</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Landed Cost Calculator Modal -->
+  <div class="modal-backdrop" id="calculatorModal">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🧮 KRA Landed Cost <span>Calculator</span></h3>
+        <button class="modal-close-btn" id="closeCalculatorModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+          Calculate total landed cost in Kenyan Shillings (KES) including CIF Mombasa, KRA 35% Import Duty, Engine Excise Duty (20% - 35%), 16% VAT, RDL (3.5%), IDF (2.5%), Port Wharfage, CFS handling, and NTSA registration.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div class="form-group">
+            <label>Sourcing Country</label>
+            <select id="calcCountry" class="form-control" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+              <option value="JP" data-curr="JPY">🇯🇵 Japan (JPY)</option>
+              <option value="GB" data-curr="GBP">🇬🇧 United Kingdom (GBP)</option>
+              <option value="AE" data-curr="AED">🇦🇪 Dubai / UAE (AED)</option>
+              <option value="ZA" data-curr="ZAR">🇿🇦 South Africa (ZAR)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Foreign Purchase Price (<span id="calcCurrencyLabel">JPY</span>)</label>
+            <input type="number" id="calcPrice" class="form-control" value="6500000" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <div class="form-group">
+            <label>Engine Capacity (CC)</label>
+            <input type="number" id="calcEngineCc" class="form-control" value="2800" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+          </div>
+          <div class="form-group">
+            <label>Fuel Type</label>
+            <select id="calcFuel" class="form-control" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+              <option value="Diesel">Diesel</option>
+              <option value="Petrol">Petrol</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-gold btn-block" id="runCalculationBtn">Compute Landed Breakdown</button>
+
+        <!-- Result Box -->
+        <div id="calcResultBox" style="margin-top: 24px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 20px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px;">
+            <span style="color: var(--text-dim);">FOB Converted:</span>
+            <span style="font-weight: 600;" id="resFobKes">KES 5,720,000</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px;">
+            <span style="color: var(--text-dim);">Ocean Freight &amp; Marine Insurance:</span>
+            <span style="font-weight: 600;" id="resFreightKes">KES 325,800</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px;">
+            <span style="color: var(--text-dim);">CIF Mombasa Value:</span>
+            <span style="font-weight: 600; color: #38bdf8;" id="resCifKes">KES 6,045,800</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px;">
+            <span style="color: var(--text-dim);">Total KRA Duties &amp; Taxes:</span>
+            <span style="font-weight: 600; color: #f59e0b;" id="resTaxesKes">KES 4,510,200</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 12px;">
+            <span style="color: var(--text-dim);">Port Wharfage, CFS &amp; NTSA Plates:</span>
+            <span style="font-weight: 600;" id="resPortKes">KES 220,000</span>
+          </div>
+          <div style="border-top: 1px solid var(--border-medium); padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 1.05rem;">Estimated Landed Cost (Nairobi):</span>
+            <span style="font-weight: 800; font-size: 1.4rem; color: var(--accent-gold);" id="resTotalLandedKes">KES 10,776,000</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #34d399; margin-top: 8px;">
+            <span>Required Sourcing Deposit (30%):</span>
+            <span style="font-weight: 700;" id="resDepositKes">KES 3,232,800</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bespoke Sourcing Wishlist Modal -->
+  <div class="modal-backdrop" id="wishlistModal">
+    <div class="modal-content" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Bespoke Import <span>Sourcing Request</span></h3>
+        <button class="modal-close-btn" id="closeWishlistModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+          Submit your vehicle requirements directly to General Manager Kiiru Njogu and Senior Sales Representative Symo Miogo for live overseas auction bidding.
+        </p>
+
+        <form id="importRequestForm">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" name="customerName" required placeholder="e.g. Dr. Arthur Waweru" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+            <div class="form-group">
+              <label>Phone / WhatsApp *</label>
+              <input type="tel" name="customerPhone" required placeholder="+254 7XX XXX XXX" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Preferred Sourcing Hub</label>
+              <select name="countryPreference" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+                <option value="Japan">🇯🇵 Japan (USS Auctions)</option>
+                <option value="United Kingdom">🇬🇧 United Kingdom (BCA)</option>
+                <option value="Dubai / UAE">🇦🇪 Dubai / UAE (GCC Spec)</option>
+                <option value="South Africa">🇿🇦 South Africa (Commercial 4x4)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="customerEmail" placeholder="yourname@gmail.com" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Make *</label>
+              <input type="text" name="make" required placeholder="e.g. Toyota, Lexus" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+            <div class="form-group">
+              <label>Model *</label>
+              <input type="text" name="model" required placeholder="e.g. Land Cruiser 300" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+            <div class="form-group">
+              <label>Minimum Year</label>
+              <input type="number" name="yearMin" value="2020" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+            <div class="form-group">
+              <label>Max Budget in KES</label>
+              <input type="number" name="maxBudgetKes" placeholder="e.g. 15000000" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+            </div>
+            <div class="form-group">
+              <label>Fuel Type</label>
+              <select name="fuelPreference" style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%;">
+                <option value="Any">Any Fuel</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label>Specific Trim, Options, or Notes</label>
+            <textarea name="notes" rows="3" placeholder="e.g. Sunroof, beige interior, Modellista aero kit, low mileage, auction grade 4.5 or higher..." style="background: var(--bg-primary); color: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-medium); width: 100%; resize: vertical;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-block" id="submitWishlistBtn">Submit Sourcing Request</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vehicle Landed Quotation Request Modal -->
+  <div class="modal-backdrop" id="quotationModal">
+    <div class="modal-content" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Official Landed Cost <span>Quotation</span></h3>
+        <button class="modal-close-btn" id="closeQuotationModal">&times;</button>
+      </div>
+      <div class="modal-body" id="quotationModalBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-col brand-col">
+        <div class="brand-logo" style="margin-bottom: 16px;">
+          <div class="brand-crest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h2>KAYAN &amp; NJOGU <span>MOTORS</span></h2>
+            <span class="brand-tagline">Nairobi, Kenya</span>
+          </div>
+        </div>
+        <p class="footer-desc">
+          Premier luxury car dealership in Nairobi. Curators of top-tier Japanese, UK, and UAE vehicles with full import certification, verified odometers, and custom clearing solutions.
+        </p>
+        <div style="margin-top: 16px; font-size: 0.82rem; color: var(--accent-gold);">
+          Leadership: Kayan Njogu (CEO) · Kiiru Njogu (GM) · Symo Miogo (Sales)
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Local Showroom</a></li>
+          <li><a href="imports.html">International Imports</a></li>
+          <li><a href="new-arrivals.html">New Arrivals</a></li>
+          <li><a href="financing.html">Financing Calculator</a></li>
+          <li><a href="sell-your-car.html">Sell Your Car</a></li>
+          <li><a href="compare.html">Vehicle Comparison</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Import Hubs</h4>
+        <ul class="footer-links">
+          <li><a href="imports.html?country=JP">🇯🇵 Japan Auto Auctions (USS)</a></li>
+          <li><a href="imports.html?country=GB">🇬🇧 United Kingdom (BCA Europe)</a></li>
+          <li><a href="imports.html?country=AE">🇦🇪 Dubai / UAE (GCC Spec)</a></li>
+          <li><a href="imports.html?country=ZA">🇿🇦 South Africa (4x4 Commercial)</a></li>
+          <li><a href="#trackSection">🛰️ Track Ocean Shipment</a></li>
+          <li><a href="terms.html">Import &amp; Warranty Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Nairobi Showroom</h4>
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <div>Karen &amp; Ngong Road Junction, Nairobi, Kenya</div>
+        </div>
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <div><a href="tel:+254712345678">+254 712 345 678</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <span>💬</span>
+          <div><a href="https://wa.me/254712345678" target="_blank" rel="noopener">WhatsApp Direct Line</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <div><a href="mailto:sourcing@kayannjogumotors.co.ke">sourcing@kayannjogumotors.co.ke</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Kayan &amp; Njogu Motors. All Rights Reserved. Compliant with KRA &amp; NTSA regulations.</div>
+      <div class="footer-bottom-links">
+        <a href="terms.html">Terms of Service</a>
+        <a href="faq.html">Import FAQ</a>
+        <a href="admin.html">Staff Portal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/imports.js"></script>
+</body>
+</html>

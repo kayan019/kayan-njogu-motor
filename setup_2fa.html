@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Setup Authenticator 2FA | Kayan &amp; Njogu Motors{% endblock %}
+
+{% block content %}
+<main class="auth-wrapper">
+  <div class="auth-container" style="max-width: 520px;">
+    <div class="auth-header">
+      <div style="width: 52px; height: 52px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.5rem;">
+        📱
+      </div>
+      <h1>Secure Your Account</h1>
+      <p>Configure Authenticator App for <strong>{{ user.full_name }}</strong> ({{ user.role }})</p>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="auth-flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <div style="text-align: center; margin: 20px 0;">
+      <div style="background: #fff; padding: 16px; border-radius: 12px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <img src="{{ url_for('auth.setup_2fa_qr') }}" alt="Authenticator QR Code" width="200" height="200" style="display: block;">
+      </div>
+      <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px;">
+        Scan with Google Authenticator, Microsoft Authenticator, or Authy.
+      </p>
+    </div>
+
+    <div style="background: #070a12; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; margin-bottom: 24px; text-align: center;">
+      <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Manual Setup Key</div>
+      <code style="color: #d4af37; font-family: monospace; font-size: 1.1rem; letter-spacing: 2px;">{{ secret }}</code>
+    </div>
+
+    <form method="POST" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="form-group">
+        <label for="code">Six-Digit Authenticator Code</label>
+        <input type="text" id="code" name="code" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000" autocomplete="one-time-code" style="text-align: center; font-size: 1.6rem; letter-spacing: 8px; font-family: monospace;" autofocus>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-block" style="width: 100%; padding: 14px; font-weight: 700; margin-top: 10px;">
+        Activate Two-Factor Authentication
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <a href="{{ url_for('auth.logout') }}">Cancel and Return to Login</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

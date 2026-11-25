@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Emergency Recovery Codes | Kayan &amp; Njogu Motors{% endblock %}
+
+{% block content %}
+<main class="auth-wrapper">
+  <div class="auth-container" style="max-width: 540px;">
+    <div class="auth-header">
+      <div style="width: 52px; height: 52px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.5rem;">
+        🛡️
+      </div>
+      <h1>Emergency Recovery Codes</h1>
+      <p>Save these 8 single-use codes in a secure password manager. They will <strong>only be shown once</strong>.</p>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="auth-flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <div style="background: #070a12; border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 24px; margin-bottom: 24px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; text-align: center; font-family: monospace; font-size: 1.15rem; color: #d4af37; font-weight: 700;">
+        {% for code in codes %}
+          <div style="background: rgba(255,255,255,0.04); padding: 8px 12px; border-radius: 6px; border: 1px dashed rgba(212,175,55,0.4);">
+            {{ code }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px; line-height: 1.5;">
+      ⚠️ If you lose your phone or authenticator app, each code can be used <strong>exactly once</strong> to log in. Store them in a secure physical vault or offline password manager.
+    </div>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-gold btn-block" style="display: block; text-align: center; padding: 14px; font-weight: 700; text-decoration: none;">
+      I Have Saved My Recovery Codes &bull; Enter Dashboard ➔
+    </a>
+  </div>
+</main>
+{% endblock %}
